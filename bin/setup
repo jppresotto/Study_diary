@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+
+puts '== Instalando dependências =='
+system 'gem install bundler --conservative'
+system('bundle check') || system('bundle install')
+
+require 'sqlite3'
+
+puts "\n== Preparando banco de dados =="
+begin
+  db = SQLite3::Database.open "/home/jppresotto/Área de Trabalho/study_diary/database.db"
+  db.execute <<~SQL
+    CREATE TABLE estudos(
+      title varchar(255),
+      category varchar(255),
+      descricao varchar(255),
+      stats varchar(2)
+    );
+  SQL
+
+rescue SQLite3::Exception => e
+  puts e
+ensure
+  db.close if db
+end
