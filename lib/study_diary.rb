@@ -1,8 +1,8 @@
-require_relative 'atividade'
+require_relative 'studyitem'
 system 'bin/setup'
 
-opc = 0
 
+opc = 0
 
 while (opc!= '7')
     status =false    
@@ -29,11 +29,11 @@ while (opc!= '7')
                 stats = gets.chomp
                 case stats
                 when '0'
-                    novo_reg = Atividade.new(title: titulo,category: categoria, descricao: descricao, stats: 'X')
+                    novo_reg =  StudyItem.new(title: titulo,category: categoria, descricao: descricao, stats: 'X')
                     novo_reg.save_to_db 
                     status = true
                 when '1'
-                    novo_reg = Atividade.new(title: titulo,category: categoria, descricao: descricao, stats: 'OK')
+                    novo_reg =  StudyItem.new(title: titulo,category: categoria, descricao: descricao, stats: 'OK')
                     novo_reg.save_to_db
                     status = true
                 else
@@ -41,21 +41,21 @@ while (opc!= '7')
             end
             
         when '2'
-            Atividade.all            
+            StudyItem.all            
         when '3'
             puts "\nDigite o titulo ou referencia: "
             referencia = gets.chomp
-            Atividade.find_reference(referencia)
+            StudyItem.find_reference(referencia)
         when '4'
             puts "\nDigite a categoria: "
             categoria = gets.chomp
-            Atividade.find_by_category(categoria)
+            StudyItem.find_by_category(categoria)
         when '5'
             puts "\nDigite o titulo: "
             titulo = gets.chomp
             puts "\nDigite a categoria: "
             categoria = gets.chomp
-            Atividade.delete(titulo,categoria)
+            StudyItem.delete(titulo,categoria)
         when '6'
             puts "\nDigite o titulo: "
             titulo = gets.chomp
@@ -67,11 +67,11 @@ while (opc!= '7')
                 case stats
                 when '0'
                     stats="X"
-                    Atividade.alterstatus(titulo,categoria, stats)                    
+                    StudyItem.alterstatus(titulo,categoria, stats)                    
                     status = true
                 when '1'
                     stats="OK"
-                    Atividade.alterstatus(titulo,categoria, stats)                    
+                    StudyItem.alterstatus(titulo,categoria, stats)                    
                     status = true
                 else
                 end

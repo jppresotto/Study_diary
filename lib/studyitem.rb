@@ -1,9 +1,9 @@
 require 'sqlite3'
 
-class Atividade
+class StudyItem
   attr_accessor :title, :category,:descricao,:stats
 
-  def initialize(title:, category:,descricao:,stats:)
+  def initialize(title:, category:Category.new(),descricao:,stats:)
     @title = title
     @category = category
     @descricao = descricao
@@ -55,7 +55,7 @@ class Atividade
     db.results_as_hash = false
     tasks = db.execute "SELECT title, category FROM estudos where title = '#{title}' AND category='#{category}'"    
     if (tasks!=[])
-      db.execute "DELETE FROM estudos WHERE title ='#{title }' AND category ='#{category }'"
+      db.execute "DELETE FROM estudos WHERE title ='#{title }' AND category ='#{category}'"
       puts("\nDeletado com sucesso!\n")
       db.close 
     else
