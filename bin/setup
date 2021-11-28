@@ -6,15 +6,17 @@ system('bundle check') || system('bundle install')
 
 require 'sqlite3'
 
-puts "\n== Preparando banco de dados =="
+puts "\n== Banco de dados incializado com sucesso =="
 begin
-  db = SQLite3::Database.open "/home/jppresotto/Área de Trabalho/study_diary/database.db"
+  db = SQLite3::Database.open "db/database.db"
   db.execute <<~SQL
-    CREATE TABLE estudos(
+    CREATE TABLE if not exists estudos(
+      id integer primary key autoincrement,
       title varchar(255),
       category varchar(255),
       descricao varchar(255),
-      stats varchar(2)
+      stats varchar(10),
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
   SQL
 
